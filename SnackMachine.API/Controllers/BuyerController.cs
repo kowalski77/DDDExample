@@ -30,7 +30,11 @@ namespace SnackMachine.API.Controllers
         [HttpPost(nameof(Insert))]
         public async Task<IActionResult> Insert([FromBody] InsertMoneyRequest request)
         {
-            var machine = await this.machineRepository.GetMainMachineAsync();
+            var maybeMachine = await this.machineRepository.GetMainMachineAsync();
+            if(!maybeMachine.TryGetValue(out var machine))
+            {
+                return this.BadRequest("There is no main machine registered");
+            }
 
             var money = Money.CreateInstance(request.Amount);
             var canInsertMoney = machine.Account.CanInsertMoney(money);
@@ -40,7 +44,6 @@ namespace SnackMachine.API.Controllers
             }
 
             machine.Account.InsertMoney(money);
-
             await this.machineRepository.SaveAsync(machine);
 
             return this.Ok();
@@ -55,7 +58,12 @@ namespace SnackMachine.API.Controllers
                 return this.BadRequest($"Snack with id: {request.Id} does not exists.");
             }
 
-            var machine = await this.machineRepository.GetMainMachineAsync();
+            var maybeMachine = await this.machineRepository.GetMainMachineAsync();
+            if (!maybeMachine.TryGetValue(out var machine))
+            {
+                return this.BadRequest("There is no main machine registered");
+            }
+
             var result = this.accountService.BuyWithExchange(machine.Account, snack);
             if (!result.Success)
             {

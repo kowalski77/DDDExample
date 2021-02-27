@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using SnackMachine.Domain.Utils;
 
 namespace SnackMachine.Domain.MachineAggregate
 {
@@ -6,7 +7,7 @@ namespace SnackMachine.Domain.MachineAggregate
     {
         Task CreateAsync(Machine machine);
 
-        Task<Machine> GetMainMachineAsync();
+        Task<Maybe<Machine>> GetMainMachineAsync();
 
         Task SaveAsync(Machine machine);
     }

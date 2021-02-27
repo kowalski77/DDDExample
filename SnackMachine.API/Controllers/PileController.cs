@@ -31,15 +31,19 @@ namespace SnackMachine.API.Controllers
                 return this.BadRequest($"Snack with id: {request.SnackId} does not exists");
             }
 
-            var machine = await this.machineRepository.GetMainMachineAsync();
+            var maybeMachine = await this.machineRepository.GetMainMachineAsync();
+            if (!maybeMachine.TryGetValue(out var machine))
+            {
+                return this.BadRequest("There is no main machine registered");
+            }
 
             var pile = machine.Piles[request.Pile];
             if (!pile.CanAddSnack())
             {
                 return this.BadRequest($"Cannot add more snacks in pile: {request.Pile}");
             }
-            pile.AddSnack(snack);
 
+            pile.AddSnack(snack);
             await this.machineRepository.SaveAsync(machine);
 
             return this.Ok();
