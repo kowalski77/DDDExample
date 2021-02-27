@@ -14,7 +14,7 @@
 
         public bool Success { get; }
 
-        public static Result<T> Ok() => new(default, true);
+        public static Result<T> Ok() => new(default!, true);
 
         public static Result<T> Ok(T code) => new(code, true);
 

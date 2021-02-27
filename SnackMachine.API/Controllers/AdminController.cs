@@ -16,16 +16,5 @@ namespace SnackMachine.API.Controllers
         {
             this.machineRepository = machineRepository ?? throw new ArgumentNullException(nameof(machineRepository));
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateMachineRequest request)
-        {
-            //var name = Name.CreateInstance(request.Name);
-
-            //var machine = new Machine(name, new Account());
-            //await this.machineRepository.CreateAsync(machine);
-
-            return this.Ok();
-        }
     }
 }
