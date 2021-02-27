@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SnackMachine.API.Contracts;
-using SnackMachine.API.Repositories;
 using SnackMachine.Domain.DomainServices;
+using SnackMachine.Domain.MachineAggregate;
+using SnackMachine.Domain.SnackAggregate;
 using SnackMachine.Domain.ValueObjects;
 
 namespace SnackMachine.API.Controllers
@@ -40,7 +41,7 @@ namespace SnackMachine.API.Controllers
 
             machine.Account.InsertMoney(money);
 
-            await this.machineRepository.SaveAsync();
+            await this.machineRepository.SaveAsync(machine);
 
             return this.Ok();
         }

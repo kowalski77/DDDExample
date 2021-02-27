@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SnackMachine.API.Contracts;
-using SnackMachine.API.Repositories;
+using SnackMachine.Domain.MachineAggregate;
+using SnackMachine.Domain.SnackAggregate;
 
 namespace SnackMachine.API.Controllers
 {
@@ -39,7 +40,7 @@ namespace SnackMachine.API.Controllers
             }
             pile.AddSnack(snack);
 
-            await this.machineRepository.SaveAsync();
+            await this.machineRepository.SaveAsync(machine);
 
             return this.Ok();
         }

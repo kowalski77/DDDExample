@@ -2,8 +2,6 @@
 using AutoFixture;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Moq;
-using SnackMachine.API.Repositories;
-using SnackMachine.Domain;
 using SnackMachine.Domain.MachineAggregate;
 using SnackMachine.Domain.SnackAggregate;
 using SnackMachine.Domain.ValueObjects;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SnackMachine.API.Contracts;
 using SnackMachine.API.Controllers;
-using SnackMachine.API.Repositories;
+using SnackMachine.Domain.MachineAggregate;
 using Xunit;
 
 namespace SnackMachine.Server.Tests
@@ -57,7 +57,7 @@ namespace SnackMachine.Server.Tests
             var result = await sut.AddSnack(request);
 
             // Assert
-            machineRepositoryMock.Verify(x => x.SaveAsync(), Times.Once);
+            machineRepositoryMock.Verify(x => x.SaveAsync(It.IsAny<Machine>()), Times.Once);
             result.Should().BeOfType<OkResult>();
         }
     }

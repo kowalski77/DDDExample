@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using SnackMachine.Domain.SnackAggregate;
 using SnackMachine.Domain.Utils;
 
-namespace SnackMachine.API.Repositories
+namespace SnackMachine.Domain.SnackAggregate
 {
     public interface ISnackRepository
     {

@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using SnackMachine.Domain.MachineAggregate;
 
-namespace SnackMachine.API.Repositories
+namespace SnackMachine.Domain.MachineAggregate
 {
     public interface IMachineRepository
     {
@@ -9,6 +8,6 @@ namespace SnackMachine.API.Repositories
 
         Task<Machine> GetMainMachineAsync();
 
-        Task<int> SaveAsync();
+        Task SaveAsync(Machine machine);
     }
 }
