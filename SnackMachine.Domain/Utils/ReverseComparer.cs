@@ -11,7 +11,7 @@ namespace SnackMachine.Domain.Utils
             this.original = original;
         }
 
-        public int Compare(T x, T y)
+        public int Compare(T? x, T? y)
         {
             return this.original.Compare(y, x);
         }

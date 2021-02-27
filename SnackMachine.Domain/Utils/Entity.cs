@@ -4,7 +4,7 @@
     {
         public long Id { get; set; }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is not Entity other)
                 return false;
@@ -23,12 +23,6 @@
 
         public static bool operator ==(Entity a, Entity b)
         {
-            if (a is null && b is null)
-                return true;
-
-            if (a is null || b is null)
-                return false;
-
             return a.Equals(b);
         }
 
