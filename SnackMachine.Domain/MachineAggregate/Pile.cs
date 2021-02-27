@@ -30,8 +30,6 @@ namespace SnackMachine.Domain.MachineAggregate
 
         public void AddSnack(Snack snack)
         {
-            if (snack == null) throw new ArgumentNullException(nameof(snack));
-
             if (!this.CanAddSnack())
             {
                 throw new InvalidOperationException("Not enough capacity in this pile");

@@ -29,15 +29,14 @@ namespace SnackMachine.Domain.ValueObjects
 
         public decimal Value { get; }
 
-        public int CompareTo(Money other)
+        public int CompareTo(Money? other)
         {
             if (ReferenceEquals(this, other))
             {
                 return 0;
             }
 
-            return ReferenceEquals(null, other) ? 1 : 
-                this.Value.CompareTo(other.Value);
+            return other is null ? 1 : this.Value.CompareTo(other.Value);
         }
 
         public static Money CreateInstance(decimal value)
@@ -64,62 +63,42 @@ namespace SnackMachine.Domain.ValueObjects
 
         public static bool operator <=(Money a, Money b)
         {
-            if (a is null || b is null)
-            {
-                return false;
-            }
-
             return a.Value <= b.Value;
         }
 
         public static bool operator >=(Money a, Money b)
         {
-            if (a is null || b is null)
-            {
-                return false;
-            }
-
             return a.Value >= b.Value;
         }
 
         public static bool operator >(Money a, Money b)
         {
-            if (a is null || b is null)
-            {
-                return false;
-            }
-
             return a.Value > b.Value;
         }
 
         public static bool operator <(Money a, Money b)
         {
-            if (a is null || b is null)
-            {
-                return false;
-            }
-
             return a.Value < b.Value;
         }
 
         public static bool operator ==(Money a, Money b)
         {
-            if (a is null && b is null)
-            {
-                return true;
-            }
-
-            if (a is null || b is null)
-            {
-                return false;
-            }
-
             return a.Value == b.Value;
         }
 
         public static bool operator !=(Money money1, Money money2)
         {
             return !(money1 == money2);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj != null && base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

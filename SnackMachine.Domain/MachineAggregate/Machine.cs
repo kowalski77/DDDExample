@@ -30,7 +30,6 @@ namespace SnackMachine.Domain.MachineAggregate
 
         public void AddPile(Pile pile)
         {
-            if (pile == null) throw new ArgumentNullException(nameof(pile));
             if (!this.CanAddPile())
             {
                 throw new InvalidOperationException($"The maximum number of piles is {MaxPilesAllowed}");

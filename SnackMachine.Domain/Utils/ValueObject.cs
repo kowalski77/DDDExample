@@ -7,7 +7,7 @@ namespace SnackMachine.Domain.Utils
     {
         protected abstract IEnumerable<object> GetEqualityComponents();
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null)
             {
@@ -39,16 +39,6 @@ namespace SnackMachine.Domain.Utils
 
         public static bool operator ==(ValueObject a, ValueObject b)
         {
-            if (a is null && b is null)
-            {
-                return true;
-            }
-
-            if (a is null || b is null)
-            {
-                return false;
-            }
-
             return a.Equals(b);
         }
 
