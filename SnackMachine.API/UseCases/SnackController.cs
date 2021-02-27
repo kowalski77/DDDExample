@@ -1,20 +1,23 @@
 ﻿using System;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SnackMachine.API.Contracts;
 using SnackMachine.Domain.MachineAggregate;
 using SnackMachine.Domain.SnackAggregate;
 
-namespace SnackMachine.API.Controllers
+namespace SnackMachine.API.UseCases
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class PileController : ControllerBase
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public class SnackController : ControllerBase
     {
         private readonly ISnackRepository snackRepository;
         private readonly IMachineRepository machineRepository;
 
-        public PileController(
+        public SnackController(
             ISnackRepository snackRepository, 
             IMachineRepository machineRepository)
         {

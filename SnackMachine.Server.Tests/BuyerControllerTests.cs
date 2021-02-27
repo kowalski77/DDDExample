@@ -4,7 +4,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SnackMachine.API.Contracts;
-using SnackMachine.API.Controllers;
+using SnackMachine.API.UseCases;
 using SnackMachine.Domain.MachineAggregate;
 using Xunit;
 

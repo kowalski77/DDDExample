@@ -2,6 +2,7 @@
 using AutoFixture;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Moq;
+using SnackMachine.API.Contracts;
 using SnackMachine.Domain.MachineAggregate;
 using SnackMachine.Domain.SnackAggregate;
 using SnackMachine.Domain.ValueObjects;
@@ -56,6 +57,24 @@ namespace SnackMachine.Server.Tests
 
             var machineRepositoryMock = fixture.Freeze<Mock<IMachineRepository>>();
             machineRepositoryMock.Setup(x => x.GetMainMachineAsync()).ReturnsAsync(machine);
+        }
+    }
+
+    public class PileZeroRequestDataSourceAttribute : MachineWithPilesDataSourceAttribute
+    {
+        protected override void CustomizeFixtureBefore(IFixture fixture)
+        {
+            fixture.Customize<AddSnackRequest>(x => x.With(y => y.Pile, 0));
+            base.CustomizeFixtureBefore(fixture);
+        }
+    }
+
+    public class PileOneRequestDataSourceAttribute : MachineWithPilesDataSourceAttribute
+    {
+        protected override void CustomizeFixtureBefore(IFixture fixture)
+        {
+            fixture.Customize<AddSnackRequest>(x => x.With(y => y.Pile, 1));
+            base.CustomizeFixtureBefore(fixture);
         }
     }
 }
