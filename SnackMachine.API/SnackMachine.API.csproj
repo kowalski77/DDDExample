@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SnackMachine.Domain\SnackMachine.Domain.csproj" />
+    <ProjectReference Include="..\SnackMachine.MongoDbPersistence\SnackMachine.MongoDbPersistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace SnackMachine.MongoDbRepository
+﻿namespace SnackMachine.MongoDbPersistence
 {
     public sealed class MongoDbConfiguration
     {

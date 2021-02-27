@@ -3,7 +3,7 @@ using MongoDB.Driver;
 using SnackMachine.Domain.MachineAggregate;
 using SnackMachine.Domain.SnackAggregate;
 
-namespace SnackMachine.MongoDbRepository
+namespace SnackMachine.MongoDbPersistence
 {
     public class SnackMachineContext
     {

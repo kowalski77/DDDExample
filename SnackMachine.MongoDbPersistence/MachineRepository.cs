@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using SnackMachine.Domain.MachineAggregate;
 
-namespace SnackMachine.MongoDbRepository
+namespace SnackMachine.MongoDbPersistence
 {
     public class MachineRepository : IMachineRepository
     {

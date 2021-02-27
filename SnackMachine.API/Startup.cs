@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SnackMachine.MongoDbPersistence;
 
 namespace SnackMachine.API
 {
@@ -23,6 +24,8 @@ namespace SnackMachine.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "SnackMachine.API", Version = "v1"});
             });
+
+            services.AddMongoDb(this.Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
