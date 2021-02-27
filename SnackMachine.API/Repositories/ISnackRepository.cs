@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using SnackMachine.Domain;
 using SnackMachine.Domain.SnackAggregate;
+using SnackMachine.Domain.Utils;
 
 namespace SnackMachine.API.Repositories
 {
     public interface ISnackRepository
     {
-        public Task<Snack> GetSnackAsync(long id);
+        public Task<Maybe<Snack>> GetSnackAsync(long id);
     }
 }

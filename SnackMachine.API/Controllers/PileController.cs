@@ -24,8 +24,8 @@ namespace SnackMachine.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddSnack([FromBody] AddSnackRequest request)
         {
-            var snack = await this.snackRepository.GetSnackAsync(request.SnackId);
-            if(snack == null)
+            var maybeSnack = await this.snackRepository.GetSnackAsync(request.SnackId);
+            if(!maybeSnack.TryGetValue(out var snack))
             {
                 return this.BadRequest($"Snack with id: {request.SnackId} does not exists");
             }

@@ -49,13 +49,12 @@ namespace SnackMachine.API.Controllers
         public async Task<IActionResult> Buy([FromBody] BuySnackRequest request)
         {
             var machine = await this.machineRepository.GetMainMachineAsync();
-            var snack = await this.snackRepository.GetSnackAsync(request.Id);
-
-            if(snack == null)
+            var maybeSnack = await this.snackRepository.GetSnackAsync(request.Id);
+            if (!maybeSnack.TryGetValue(out var snack))
             {
                 return this.BadRequest($"Snack with id: {request.Id} does not exists.");
             }
-
+            
             var result = this.accountService.BuyWithExchange(machine.Account, snack);
             if (!result.Success)
             {
