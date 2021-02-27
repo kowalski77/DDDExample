@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using SnackMachine.Domain;
 using SnackMachine.Domain.MachineAggregate;
 
 namespace SnackMachine.API.Repositories

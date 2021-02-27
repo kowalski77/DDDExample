@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SnackMachine.Domain.Utils
+﻿namespace SnackMachine.Domain.Utils
 {
     public readonly struct Maybe<T>
         where T : class
