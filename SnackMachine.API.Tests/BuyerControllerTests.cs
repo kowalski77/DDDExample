@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SnackMachine.API.Contracts;
 using SnackMachine.API.UseCases.InsertCoin;
-using SnackMachine.Domain.MachineAggregate;
+using SnackMachine.Domain.AccountAggregate;
 using Xunit;
 
 namespace SnackMachine.API.Tests
@@ -14,7 +14,7 @@ namespace SnackMachine.API.Tests
     {
         [Theory]
         [BuyerDataSource]
-        public async Task InsertMoneyAsync_NotAllowedCoin_ShouldReturnBadRequest(CustomerController sut)
+        public async Task InsertMoneyAsync_NotAllowedCoin_ShouldReturnBadRequest(AccountController sut)
         {
             // Arrange
             var request = new InsertMoneyRequest(0.75m);
@@ -31,7 +31,7 @@ namespace SnackMachine.API.Tests
         [BuyerDataSource]
         public async Task InsertMoneyAsync_AllowedCoin_ShouldReturnOk(
             [Frozen] Mock<IMachineRepository> machineRepositoryMock,
-            CustomerController sut)
+            AccountController sut)
         {
             // Arrange
             var request = new InsertMoneyRequest(0.50m);

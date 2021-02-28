@@ -8,6 +8,6 @@
 
         public string SnacksCollectionName { get; set; } = "Snacks";
 
-        public string MachineCollectionName { get; set; } = "Machines";
+        public string AccountCollectionName { get; set; } = "Accounts";
     }
 }

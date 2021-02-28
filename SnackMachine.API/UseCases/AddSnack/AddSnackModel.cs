@@ -2,14 +2,14 @@
 
 namespace SnackMachine.API.UseCases.AddSnack
 {
-    public record AddSnackRequest(long SnackId, int Pile);
+    public record AddSnackRequest(string Name, decimal Price);
 
     public class AddSnackRequestValidator : AbstractValidator<AddSnackRequest>
     {
         public AddSnackRequestValidator()
         {
-            this.RuleFor(x => x.Pile).GreaterThan(0);
-            this.RuleFor(x => x.SnackId).GreaterThan(0);
+            this.RuleFor(x => x.Name).NotEmpty();
+            this.RuleFor(x => x.Price).GreaterThan(0);
         }
     }
 }

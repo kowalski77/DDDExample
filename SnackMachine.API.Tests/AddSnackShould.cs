@@ -4,7 +4,6 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SnackMachine.API.UseCases.AddSnack;
-using SnackMachine.Domain.MachineAggregate;
 using Xunit;
 
 namespace SnackMachine.API.Tests
@@ -14,7 +13,7 @@ namespace SnackMachine.API.Tests
         [Theory, ControllerDataSource]
         public async Task Create_BadRequest_result_when_no_machine_is_registered(
             AddSnackRequest request,
-            MachineController sut)
+            SnackController sut)
         {
             // Act
             var result = await sut.AddSnack(request);
@@ -27,7 +26,7 @@ namespace SnackMachine.API.Tests
         [Theory, MachineWithNoSnacksDataSource]
         public async Task Create_BadRequest_result_when_snack_does_not_exist(
             AddSnackRequest request,
-            MachineController sut)
+            SnackController sut)
         {
             // Act
             var result = await sut.AddSnack(request);
@@ -41,7 +40,7 @@ namespace SnackMachine.API.Tests
         public async Task Create_OK_result_when_created(
             [Frozen] Mock<IMachineRepository> machineRepositoryMock,
             AddSnackRequest request,
-            MachineController sut)
+            SnackController sut)
         {
             // Act
             var result = await sut.AddSnack(request);
@@ -54,7 +53,7 @@ namespace SnackMachine.API.Tests
         [Theory, PileZeroRequestDataSource]
         public async Task Create_BadRequest_result_when_there_is_not_enought_space(
             AddSnackRequest request,
-            MachineController sut)
+            SnackController sut)
         {
             // Act
             var result = await sut.AddSnack(request);

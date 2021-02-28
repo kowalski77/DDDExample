@@ -1,5 +1,5 @@
 ﻿using System;
-using SnackMachine.Domain.MachineAggregate;
+using SnackMachine.Domain.AccountAggregate;
 using SnackMachine.Domain.SnackAggregate;
 using SnackMachine.Domain.Utils;
 

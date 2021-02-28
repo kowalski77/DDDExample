@@ -15,9 +15,4 @@
     <ProjectReference Include="..\SnackMachine.MongoDbPersistence\SnackMachine.MongoDbPersistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\InsertCoin\" />
-    <Folder Include="UseCases\BuySnack\" />
-  </ItemGroup>
-
 </Project>

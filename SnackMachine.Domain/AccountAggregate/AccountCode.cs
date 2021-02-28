@@ -1,4 +1,4 @@
-﻿namespace SnackMachine.Domain.MachineAggregate
+﻿namespace SnackMachine.Domain.AccountAggregate
 {
     public enum AccountCode
     {

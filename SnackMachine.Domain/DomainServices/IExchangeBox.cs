@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SnackMachine.Domain.MachineAggregate;
+using SnackMachine.Domain.AccountAggregate;
 using SnackMachine.Domain.ValueObjects;
 
 namespace SnackMachine.Domain.DomainServices

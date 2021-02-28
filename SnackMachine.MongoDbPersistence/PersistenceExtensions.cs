@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SnackMachine.Domain.MachineAggregate;
+using SnackMachine.Domain.AccountAggregate;
 using SnackMachine.Domain.SnackAggregate;
 
 namespace SnackMachine.MongoDbPersistence
@@ -11,7 +11,7 @@ namespace SnackMachine.MongoDbPersistence
         {
             services.Configure<MongoDbConfiguration>(configuration.GetSection(nameof(MongoDbConfiguration)));
             services.AddSingleton<SnackMachineContext>();
-            services.AddSingleton<IMachineRepository, MachineRepository>();
+            services.AddSingleton<IAccountRepository, AccountRepository>();
             services.AddSingleton<ISnackRepository, SnackRepository>();
 
             return services;

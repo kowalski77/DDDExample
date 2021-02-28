@@ -2,7 +2,7 @@
 using SnackMachine.Domain.Utils;
 using SnackMachine.Domain.ValueObjects;
 
-namespace SnackMachine.Domain.MachineAggregate
+namespace SnackMachine.Domain.AccountAggregate
 {
     public class Coin : Entity, ICloneable
     {

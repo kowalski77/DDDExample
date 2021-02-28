@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using SnackMachine.Domain.MachineAggregate;
+using SnackMachine.Domain.AccountAggregate;
 using SnackMachine.Domain.SnackAggregate;
 
 namespace SnackMachine.MongoDbPersistence
@@ -21,7 +21,7 @@ namespace SnackMachine.MongoDbPersistence
         public IMongoCollection<Snack> SnacksCollection =>
             this.database.GetCollection<Snack>(this.configuration.SnacksCollectionName);
 
-        public IMongoCollection<Machine> MachinesCollection =>
-            this.database.GetCollection<Machine>(this.configuration.MachineCollectionName);
+        public IMongoCollection<Account> AccountsCollection =>
+            this.database.GetCollection<Account>(this.configuration.AccountCollectionName);
     }
 }

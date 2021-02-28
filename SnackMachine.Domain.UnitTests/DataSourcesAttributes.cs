@@ -1,47 +1,13 @@
 ﻿using System.Collections.Generic;
 using AutoFixture;
+using SnackMachine.Domain.AccountAggregate;
 using SnackMachine.Domain.DomainServices;
-using SnackMachine.Domain.MachineAggregate;
 using SnackMachine.Domain.SnackAggregate;
 using SnackMachine.Domain.ValueObjects;
 using SnackMachine.TestUtils;
 
 namespace SnackMachine.Domain.UnitTests
 {
-    public class PileBaseDataSourceAttribute : BaseDataSourceAttribute
-    {
-        protected override void CustomizeFixtureBefore(IFixture fixture)
-        {
-            var capacity = Capacity.CreateInstance(3);
-            var pile = new Pile(capacity);
-            var name = Name.CreateInstance(fixture.Create<string>());
-            var price = Money.CreateInstance(0.55m);
-
-            var snack = new Snack(name, price) { Id = fixture.Create<int>() };
-            pile.AddSnack(snack);
-            pile.AddSnack(fixture.Create<Snack>());
-            pile.AddSnack(fixture.Create<Snack>());
-
-            fixture.Inject(snack);
-            fixture.Inject(pile);
-        }
-    }
-
-    public class MachineDataSourceAttribute : BaseDataSourceAttribute
-    {
-        protected override void CustomizeFixtureBefore(IFixture fixture)
-        {
-            var piles = fixture.Create<List<Pile>>();
-            var machine = fixture.Create<Machine>();
-            foreach (var pile in piles)
-            {
-                machine.AddPile(pile);
-            }
-
-            fixture.Inject(machine);
-        }
-    }
-
     public class ExchangeBoxDataSourceAttribute : BaseDataSourceAttribute
     {
         protected override void CustomizeFixtureBefore(IFixture fixture)

@@ -3,7 +3,6 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SnackMachine.API.Contracts;
-using SnackMachine.Domain.MachineAggregate;
 using SnackMachine.Domain.ValueObjects;
 
 namespace SnackMachine.API.UseCases.InsertCoin
@@ -12,11 +11,11 @@ namespace SnackMachine.API.UseCases.InsertCoin
     [Route("api/v1/[controller]")]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public class CustomerController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private readonly IMachineRepository machineRepository;
 
-        public CustomerController(IMachineRepository machineRepository)
+        public AccountController(IMachineRepository machineRepository)
         {
             this.machineRepository = machineRepository ?? throw new ArgumentNullException(nameof(machineRepository));
         }

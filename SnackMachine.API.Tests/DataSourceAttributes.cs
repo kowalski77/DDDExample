@@ -3,7 +3,7 @@ using AutoFixture;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Moq;
 using SnackMachine.API.UseCases.AddSnack;
-using SnackMachine.Domain.MachineAggregate;
+using SnackMachine.Domain.AccountAggregate;
 using SnackMachine.Domain.SnackAggregate;
 using SnackMachine.Domain.ValueObjects;
 using SnackMachine.TestUtils;

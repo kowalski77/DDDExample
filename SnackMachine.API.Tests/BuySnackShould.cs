@@ -4,8 +4,8 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SnackMachine.API.UseCases.BuySnack;
+using SnackMachine.Domain.AccountAggregate;
 using SnackMachine.Domain.DomainServices;
-using SnackMachine.Domain.MachineAggregate;
 using SnackMachine.Domain.SnackAggregate;
 using SnackMachine.Domain.Utils;
 using Xunit;
@@ -18,7 +18,7 @@ namespace SnackMachine.API.Tests
         public async Task Create_BadRequest_result_when_no_machine_is_registered(
             [Frozen] Mock<IMachineRepository> machineRepositoryMock,
             BuySnackRequest request,
-            CustomerController sut)
+            AccountController sut)
         {
             // Act
             var result = await sut.BuySnack(request);
@@ -33,7 +33,7 @@ namespace SnackMachine.API.Tests
         public async Task Create_BadRequest_result_when_snack_does_not_exists(
             [Frozen] Mock<IMachineRepository> machineRepositoryMock,
             BuySnackRequest request,
-            CustomerController sut)
+            AccountController sut)
         {
             // Act
             var result = await sut.BuySnack(request);
@@ -49,7 +49,7 @@ namespace SnackMachine.API.Tests
             [Frozen] Mock<IMachineRepository> machineRepositoryMock,
             [Frozen] Mock<IAccountService> accountServiceMock,
             BuySnackRequest request,
-            CustomerController sut)
+            AccountController sut)
         {
             // Arrange
             accountServiceMock.Setup(x => x.BuyWithExchange(It.IsAny<Account>(), It.IsAny<Snack>()))
@@ -68,7 +68,7 @@ namespace SnackMachine.API.Tests
             [Frozen] Mock<IMachineRepository> machineRepositoryMock,
             [Frozen] Mock<IAccountService> accountServiceMock,
             BuySnackRequest request,
-            CustomerController sut)
+            AccountController sut)
         {
             // Arrange
             accountServiceMock.Setup(x => x.BuyWithExchange(It.IsAny<Account>(), It.IsAny<Snack>()))

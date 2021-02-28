@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
+using SnackMachine.Domain.AccountAggregate;
 using SnackMachine.Domain.DomainServices;
-using SnackMachine.Domain.MachineAggregate;
 using SnackMachine.Domain.SnackAggregate;
 using SnackMachine.Domain.ValueObjects;
 using Xunit;
