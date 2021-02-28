@@ -15,23 +15,22 @@ namespace SnackMachine.API.Tests
     public class BuySnackShould
     {
         [Theory, ControllerDataSource]
-        public async Task Create_BadRequest_result_when_no_machine_is_registered(
-            [Frozen] Mock<IMachineRepository> machineRepositoryMock,
-            BuySnackRequest request,
+        public async Task Create_BadRequest_result_when_request_is_null(
+            [Frozen] Mock<IAccountRepository> accountRepositoryMock,
             AccountController sut)
         {
             // Act
-            var result = await sut.BuySnack(request);
+            var result = await sut.BuySnack(null!);
 
             // Assert
-            machineRepositoryMock.Verify(x => x.SaveAsync(It.IsAny<Machine>()), Times.Never);
+            accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
             result.Should().BeOfType<BadRequestObjectResult>();
-            ((ObjectResult)result).Value.ToString().Should().Be("There is no main machine registered");
+            ((ObjectResult)result).Value.ToString().Should().Be($"Request {nameof(BuySnackRequest)} is null");
         }
 
-        [Theory, MachineWithNoSnacksDataSource]
-        public async Task Create_BadRequest_result_when_snack_does_not_exists(
-            [Frozen] Mock<IMachineRepository> machineRepositoryMock,
+        [Theory, ControllerDataSource]
+        public async Task Create_BadRequest_result_when_no_account_is_available(
+            [Frozen] Mock<IAccountRepository> accountRepositoryMock,
             BuySnackRequest request,
             AccountController sut)
         {
@@ -39,14 +38,29 @@ namespace SnackMachine.API.Tests
             var result = await sut.BuySnack(request);
 
             // Assert
-            machineRepositoryMock.Verify(x => x.SaveAsync(It.IsAny<Machine>()), Times.Never);
+            accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
+            result.Should().BeOfType<BadRequestObjectResult>();
+            ((ObjectResult)result).Value.ToString().Should().Be("No account available");
+        }
+
+        [Theory, AccountDataSource]
+        public async Task Create_BadRequest_result_when_snack_does_not_exists(
+            [Frozen] Mock<IAccountRepository> accountRepositoryMock,
+            BuySnackRequest request,
+            AccountController sut)
+        {
+            // Act
+            var result = await sut.BuySnack(request);
+
+            // Assert
+            accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
             result.Should().BeOfType<BadRequestObjectResult>();
             ((ObjectResult)result).Value.ToString().Should().Be($"Snack with id: {request.SnackId} does not exists");
         }
 
         [Theory, MachineWithSnacksDataSource]
         public async Task Create_BadRequest_result_when_transaction_cannot_be_completed(
-            [Frozen] Mock<IMachineRepository> machineRepositoryMock,
+            [Frozen] Mock<IAccountRepository> accountRepositoryMock,
             [Frozen] Mock<IAccountService> accountServiceMock,
             BuySnackRequest request,
             AccountController sut)
@@ -59,13 +73,13 @@ namespace SnackMachine.API.Tests
             var result = await sut.BuySnack(request);
 
             // Assert
-            machineRepositoryMock.Verify(x => x.SaveAsync(It.IsAny<Machine>()), Times.Never);
+            accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
             result.Should().BeOfType<BadRequestObjectResult>();
         }
 
         [Theory, MachineWithSnacksDataSource]
         public async Task Create_Ok_result_when_transaction_is_completed(
-            [Frozen] Mock<IMachineRepository> machineRepositoryMock,
+            [Frozen] Mock<IAccountRepository> accountRepositoryMock,
             [Frozen] Mock<IAccountService> accountServiceMock,
             BuySnackRequest request,
             AccountController sut)
@@ -78,7 +92,7 @@ namespace SnackMachine.API.Tests
             var result = await sut.BuySnack(request);
 
             // Assert
-            machineRepositoryMock.Verify(x => x.SaveAsync(It.IsAny<Machine>()), Times.Once);
+            accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Once);
             result.Should().BeOfType<OkResult>();
         }
     }

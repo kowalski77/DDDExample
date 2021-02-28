@@ -4,7 +4,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SnackMachine.API.Contracts;
-using SnackMachine.API.UseCases.InsertCoin;
+using SnackMachine.API.UseCases.InsertMoney;
 using SnackMachine.Domain.AccountAggregate;
 using Xunit;
 
@@ -13,14 +13,14 @@ namespace SnackMachine.API.Tests
     public class BuyerControllerTests
     {
         [Theory]
-        [BuyerDataSource]
+        [AccountDataSource]
         public async Task InsertMoneyAsync_NotAllowedCoin_ShouldReturnBadRequest(AccountController sut)
         {
             // Arrange
             var request = new InsertMoneyRequest(0.75m);
 
             // Act
-            var result = await sut.Insert(request);
+            var result = await sut.InsertMoney(request);
 
             // Assert
             result.Should().BeOfType<BadRequestObjectResult>();
@@ -28,7 +28,7 @@ namespace SnackMachine.API.Tests
         }
 
         [Theory]
-        [BuyerDataSource]
+        [AccountDataSource]
         public async Task InsertMoneyAsync_AllowedCoin_ShouldReturnOk(
             [Frozen] Mock<IMachineRepository> machineRepositoryMock,
             AccountController sut)
@@ -37,7 +37,7 @@ namespace SnackMachine.API.Tests
             var request = new InsertMoneyRequest(0.50m);
 
             // Act
-            var result = await sut.Insert(request);
+            var result = await sut.InsertMoney(request);
 
             // Assert
             machineRepositoryMock.Verify(x => x.SaveAsync(It.IsAny<Machine>()), Times.Once);
