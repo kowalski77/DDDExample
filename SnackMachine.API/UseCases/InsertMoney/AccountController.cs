@@ -20,7 +20,7 @@ namespace SnackMachine.API.UseCases.InsertMoney
             this.accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
         }
 
-        [HttpPost(nameof(InsertMoney))]
+        [HttpPut(nameof(InsertMoney))]
         public async Task<IActionResult> InsertMoney([FromBody] InsertMoneyRequest request)
         {
             if (request == null)
@@ -45,7 +45,7 @@ namespace SnackMachine.API.UseCases.InsertMoney
 
             await this.accountRepository.UpdateAccountAsync(account);
 
-            return this.Ok();
+            return this.NoContent();
         }
     }
 }

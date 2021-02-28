@@ -28,7 +28,7 @@ namespace SnackMachine.API.UseCases.BuySnack
             this.accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
         }
 
-        [HttpPost(nameof(BuySnack))]
+        [HttpPut(nameof(BuySnack))]
         public async Task<IActionResult> BuySnack([FromBody] BuySnackRequest request)
         {
             if (request == null)
@@ -56,7 +56,7 @@ namespace SnackMachine.API.UseCases.BuySnack
 
             await this.accountRepository.UpdateAccountAsync(account);
 
-            return this.Ok();
+            return this.NoContent();
         }
     }
 }

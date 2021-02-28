@@ -31,7 +31,7 @@ namespace SnackMachine.API.UseCases.AddSnack
             var snack = new Snack(Name.CreateInstance(request.Name), Money.CreateInstance(request.Price));
             await this.snackRepository.AddSnack(snack);
 
-            return this.Ok();
+            return this.Ok(snack);
         }
     }
 }

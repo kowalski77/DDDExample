@@ -70,7 +70,7 @@ namespace SnackMachine.API.Tests
 
             // Assert
             accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Once);
-            result.Should().BeOfType<OkResult>();
+            result.Should().BeOfType<NoContentResult>();
         }
     }
 }

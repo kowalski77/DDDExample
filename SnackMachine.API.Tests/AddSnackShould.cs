@@ -28,7 +28,7 @@ namespace SnackMachine.API.Tests
             var result = await sut.AddSnack(request);
 
             // Assert
-            result.Should().BeOfType<OkResult>();
+            result.Should().BeOfType<OkObjectResult>();
         }
     }
 }
