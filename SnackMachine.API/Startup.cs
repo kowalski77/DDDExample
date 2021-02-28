@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SnackMachine.API.Contracts.Validators;
+using SnackMachine.API.UseCases.InsertMoney;
 using SnackMachine.Domain;
 using SnackMachine.MongoDbPersistence;
 
@@ -23,7 +23,7 @@ namespace SnackMachine.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterMachineRequestValidator>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<InsertMoneyRequestValidator>());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "SnackMachine.API", Version = "v1"});
