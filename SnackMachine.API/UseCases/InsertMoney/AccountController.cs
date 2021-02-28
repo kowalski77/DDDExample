@@ -31,7 +31,7 @@ namespace SnackMachine.API.UseCases.InsertMoney
             var maybeAccount = await this.accountRepository.GetAccountAsync();
             if (!maybeAccount.TryGetValue(out var account))
             {
-                return this.BadRequest("No account available");
+                return this.NotFound("No account available");
             }
 
             var money = Money.CreateInstance(request.Amount);

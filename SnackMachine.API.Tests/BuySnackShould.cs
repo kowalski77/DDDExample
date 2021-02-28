@@ -29,7 +29,7 @@ namespace SnackMachine.API.Tests
         }
 
         [Theory, ControllerDataSource]
-        public async Task Create_BadRequest_result_when_no_account_is_available(
+        public async Task Create_NotFound_result_when_no_account_is_available(
             [Frozen] Mock<IAccountRepository> accountRepositoryMock,
             BuySnackRequest request,
             AccountController sut)
@@ -39,12 +39,12 @@ namespace SnackMachine.API.Tests
 
             // Assert
             accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
-            result.Should().BeOfType<BadRequestObjectResult>();
+            result.Should().BeOfType<NotFoundObjectResult>();
             ((ObjectResult)result).Value.ToString().Should().Be("No account available");
         }
 
         [Theory, AccountDataSource]
-        public async Task Create_BadRequest_result_when_snack_does_not_exists(
+        public async Task Create_NotFound_result_when_snack_does_not_exists(
             [Frozen] Mock<IAccountRepository> accountRepositoryMock,
             BuySnackRequest request,
             AccountController sut)
@@ -54,7 +54,7 @@ namespace SnackMachine.API.Tests
 
             // Assert
             accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
-            result.Should().BeOfType<BadRequestObjectResult>();
+            result.Should().BeOfType<NotFoundObjectResult>();
             ((ObjectResult)result).Value.ToString().Should().Be($"Snack with id: {request.SnackId} does not exists");
         }
 

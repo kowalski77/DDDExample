@@ -39,13 +39,13 @@ namespace SnackMachine.API.UseCases.BuySnack
             var maybeAccount = await this.accountRepository.GetAccountAsync();
             if (!maybeAccount.TryGetValue(out var account))
             {
-                return this.BadRequest("No account available");
+                return this.NotFound("No account available");
             }
 
             var maybeSnack = await this.snackRepository.GetSnackAsync(request.SnackId);
             if (!maybeSnack.TryGetValue(out var snack))
             {
-                return this.BadRequest($"Snack with id: {request.SnackId} does not exists");
+                return this.NotFound($"Snack with id: {request.SnackId} does not exists");
             }
 
             var result = this.accountService.BuyWithExchange(account, snack);
