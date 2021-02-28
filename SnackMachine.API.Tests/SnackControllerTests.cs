@@ -4,7 +4,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SnackMachine.API.Contracts;
-using SnackMachine.API.UseCases;
+using SnackMachine.API.UseCases.AddSnack;
 using SnackMachine.Domain.MachineAggregate;
 using Xunit;
 
@@ -16,7 +16,7 @@ namespace SnackMachine.API.Tests
         [ControllerDataSource]
         public async Task AddSnack_WithNotExistingSnackId_ShouldReturnBadRequest(
             AddSnackRequest request,
-            SnackController sut)
+            MachineController sut)
         {
             // Act
             var result = await sut.AddSnack(request);
@@ -30,7 +30,7 @@ namespace SnackMachine.API.Tests
         [PileZeroRequestDataSource]
         public async Task AddSnack_WithFullPile_ShouldReturnBadRequest(
             AddSnackRequest request,
-            SnackController sut)
+            MachineController sut)
         {
             // Act
             var result = await sut.AddSnack(request);
@@ -45,7 +45,7 @@ namespace SnackMachine.API.Tests
         public async Task AddSnack_WithPileWithSpaceAvailable_ShouldAddSnackAndSaveTheData(
             [Frozen] Mock<IMachineRepository> machineRepositoryMock,
             AddSnackRequest request,
-            SnackController sut)
+            MachineController sut)
         {
             // Act
             var result = await sut.AddSnack(request);

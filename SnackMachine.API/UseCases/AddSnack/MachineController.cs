@@ -6,18 +6,18 @@ using SnackMachine.API.Contracts;
 using SnackMachine.Domain.MachineAggregate;
 using SnackMachine.Domain.SnackAggregate;
 
-namespace SnackMachine.API.UseCases
+namespace SnackMachine.API.UseCases.AddSnack
 {
     [ApiController]
     [Route("api/v1/[controller]")]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public class SnackController : ControllerBase
+    public class MachineController : ControllerBase
     {
         private readonly ISnackRepository snackRepository;
         private readonly IMachineRepository machineRepository;
 
-        public SnackController(
+        public MachineController(
             ISnackRepository snackRepository, 
             IMachineRepository machineRepository)
         {
