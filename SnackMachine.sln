@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachine.Domain.UnitTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachine.TestUtils", "SnackMachine.TestUtils\SnackMachine.TestUtils.csproj", "{D1231BFB-0829-42CF-8AA6-1D964CB96FEF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachine.Server.Tests", "SnackMachine.Server.Tests\SnackMachine.Server.Tests.csproj", "{83177093-F445-4967-B753-34201AA14D36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachine.API.Tests", "SnackMachine.API.Tests\SnackMachine.API.Tests.csproj", "{83177093-F445-4967-B753-34201AA14D36}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachine.API", "SnackMachine.API\SnackMachine.API.csproj", "{1148CAB4-2DA1-49F2-A5AB-76130B63D552}"
 EndProject

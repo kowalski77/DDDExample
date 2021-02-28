@@ -8,7 +8,7 @@ using SnackMachine.Domain.SnackAggregate;
 using SnackMachine.Domain.ValueObjects;
 using SnackMachine.TestUtils;
 
-namespace SnackMachine.Server.Tests
+namespace SnackMachine.API.Tests
 {
     public class ControllerDataSourceAttribute : BaseDataSourceAttribute
     {

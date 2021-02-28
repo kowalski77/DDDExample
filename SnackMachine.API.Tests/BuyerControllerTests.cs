@@ -8,7 +8,7 @@ using SnackMachine.API.UseCases;
 using SnackMachine.Domain.MachineAggregate;
 using Xunit;
 
-namespace SnackMachine.Server.Tests
+namespace SnackMachine.API.Tests
 {
     public class BuyerControllerTests
     {

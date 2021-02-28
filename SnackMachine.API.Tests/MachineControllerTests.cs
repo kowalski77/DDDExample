@@ -1,4 +1,4 @@
-﻿namespace SnackMachine.Server.Tests
+﻿namespace SnackMachine.API.Tests
 {
     public class MachineControllerTests
     {
