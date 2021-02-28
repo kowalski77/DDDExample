@@ -7,7 +7,7 @@ namespace SnackMachine.MongoDbPersistence
 {
     public static class PersistenceExtensions
     {
-        public static IServiceCollection AddMongoDb(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<MongoDbConfiguration>(configuration.GetSection(nameof(MongoDbConfiguration)));
             services.AddSingleton<SnackMachineContext>();

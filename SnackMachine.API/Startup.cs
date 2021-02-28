@@ -30,7 +30,7 @@ namespace SnackMachine.API
             });
 
             services.AddDomainServices();
-            services.AddMongoDb(this.Configuration);
+            services.AddPersistence(this.Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
