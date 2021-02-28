@@ -28,16 +28,16 @@ namespace SnackMachine.API.UseCases.AddSnack
         [HttpPost]
         public async Task<IActionResult> AddSnack([FromBody] AddSnackRequest request)
         {
-            var maybeSnack = await this.snackRepository.GetSnackAsync(request.SnackId);
-            if(!maybeSnack.TryGetValue(out var snack))
-            {
-                return this.BadRequest($"Snack with id: {request.SnackId} does not exists");
-            }
-
             var maybeMachine = await this.machineRepository.GetMainMachineAsync();
             if (!maybeMachine.TryGetValue(out var machine))
             {
                 return this.BadRequest("There is no main machine registered");
+            }
+
+            var maybeSnack = await this.snackRepository.GetSnackAsync(request.SnackId);
+            if(!maybeSnack.TryGetValue(out var snack))
+            {
+                return this.BadRequest($"Snack with id: {request.SnackId} does not exists");
             }
 
             var pile = machine.Piles[request.Pile];

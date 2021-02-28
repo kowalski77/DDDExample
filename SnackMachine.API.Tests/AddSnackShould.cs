@@ -3,18 +3,16 @@ using AutoFixture.Xunit2;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using SnackMachine.API.Contracts;
 using SnackMachine.API.UseCases.AddSnack;
 using SnackMachine.Domain.MachineAggregate;
 using Xunit;
 
 namespace SnackMachine.API.Tests
 {
-    public class SnackControllerTests
+    public class AddSnackShould
     {
-        [Theory]
-        [ControllerDataSource]
-        public async Task AddSnack_WithNotExistingSnackId_ShouldReturnBadRequest(
+        [Theory, ControllerDataSource]
+        public async Task Create_BadRequest_result_when_no_machine_is_registered(
             AddSnackRequest request,
             MachineController sut)
         {
@@ -23,12 +21,11 @@ namespace SnackMachine.API.Tests
 
             // Assert
             result.Should().BeOfType<BadRequestObjectResult>();
-            ((ObjectResult) result).Value.ToString().Should().Be($"Snack with id: {request.SnackId} does not exists");
+            ((ObjectResult)result).Value.ToString().Should().Be($"There is no main machine registered");
         }
 
-        [Theory]
-        [PileZeroRequestDataSource]
-        public async Task AddSnack_WithFullPile_ShouldReturnBadRequest(
+        [Theory, MachineWithNoSnacksDataSource]
+        public async Task Create_BadRequest_result_when_snack_does_not_exist(
             AddSnackRequest request,
             MachineController sut)
         {
@@ -37,12 +34,11 @@ namespace SnackMachine.API.Tests
 
             // Assert
             result.Should().BeOfType<BadRequestObjectResult>();
-            ((ObjectResult) result).Value.ToString().Should().Be($"Cannot add more snacks in pile: {request.Pile}");
+            ((ObjectResult)result).Value.ToString().Should().Be($"Snack with id: {request.SnackId} does not exists");
         }
 
-        [Theory]
-        [PileOneRequestDataSource]
-        public async Task AddSnack_WithPileWithSpaceAvailable_ShouldAddSnackAndSaveTheData(
+        [Theory, PileOneRequestDataSource]
+        public async Task Create_OK_result_when_created(
             [Frozen] Mock<IMachineRepository> machineRepositoryMock,
             AddSnackRequest request,
             MachineController sut)
@@ -53,6 +49,19 @@ namespace SnackMachine.API.Tests
             // Assert
             machineRepositoryMock.Verify(x => x.SaveAsync(It.IsAny<Machine>()), Times.Once);
             result.Should().BeOfType<OkResult>();
+        }
+
+        [Theory, PileZeroRequestDataSource]
+        public async Task Create_BadRequest_result_when_there_is_not_enought_space(
+            AddSnackRequest request,
+            MachineController sut)
+        {
+            // Act
+            var result = await sut.AddSnack(request);
+
+            // Assert
+            result.Should().BeOfType<BadRequestObjectResult>();
+            ((ObjectResult)result).Value.ToString().Should().Be($"Cannot add more snacks in pile: {request.Pile}");
         }
     }
 }

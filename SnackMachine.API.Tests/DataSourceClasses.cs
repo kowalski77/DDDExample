@@ -38,6 +38,17 @@ namespace SnackMachine.API.Tests
         }
     }
 
+    public class MachineWithNoSnacksDataSourceAttribute : ControllerDataSourceAttribute
+    {
+        protected override void CustomizeFixtureBefore(IFixture fixture)
+        {
+            var machineRepositoryMock = fixture.Freeze<Mock<IMachineRepository>>();
+            machineRepositoryMock.Setup(x => x.GetMainMachineAsync()).ReturnsAsync(fixture.Create<Machine>());
+
+            base.CustomizeFixtureBefore(fixture);
+        }
+    }
+
     public class MachineWithPilesDataSourceAttribute : ControllerDataSourceAttribute
     {
         protected override void CustomizeFixtureBefore(IFixture fixture)
