@@ -2,7 +2,7 @@
 using AutoFixture;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Moq;
-using SnackMachine.API.Contracts;
+using SnackMachine.API.UseCases.AddSnack;
 using SnackMachine.Domain.MachineAggregate;
 using SnackMachine.Domain.SnackAggregate;
 using SnackMachine.Domain.ValueObjects;
@@ -44,6 +44,23 @@ namespace SnackMachine.API.Tests
         {
             var machineRepositoryMock = fixture.Freeze<Mock<IMachineRepository>>();
             machineRepositoryMock.Setup(x => x.GetMainMachineAsync()).ReturnsAsync(fixture.Create<Machine>());
+
+            base.CustomizeFixtureBefore(fixture);
+        }
+    }
+
+    public class MachineWithSnacksDataSourceAttribute : ControllerDataSourceAttribute
+    {
+        protected override void CustomizeFixtureBefore(IFixture fixture)
+        {
+            // machine repository
+            var machineRepositoryMock = fixture.Freeze<Mock<IMachineRepository>>();
+            machineRepositoryMock.Setup(x => x.GetMainMachineAsync()).ReturnsAsync(fixture.Create<Machine>());
+
+            // snack repository
+            var snack = fixture.Create<Snack>();
+            var snackRepository = fixture.Freeze<Mock<ISnackRepository>>();
+            snackRepository.Setup(x => x.GetSnackAsync(It.IsAny<long>())).ReturnsAsync(snack);
 
             base.CustomizeFixtureBefore(fixture);
         }

@@ -8,8 +8,8 @@ namespace SnackMachine.API.UseCases.AddSnack
     {
         public AddSnackRequestValidator()
         {
-            this.RuleFor(x => x.Pile > 0);
-            this.RuleFor(x => x.SnackId > 0);
+            this.RuleFor(x => x.Pile).GreaterThan(0);
+            this.RuleFor(x => x.SnackId).GreaterThan(0);
         }
     }
 }

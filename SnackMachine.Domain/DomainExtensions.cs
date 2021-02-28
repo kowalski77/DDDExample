@@ -8,7 +8,7 @@ namespace SnackMachine.Domain
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
             services.AddScoped<IExchangeBox, ExchangeBox>();
-            services.AddScoped<AccountService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             return services;
         }

@@ -2,7 +2,6 @@
 using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SnackMachine.API.Contracts;
 using SnackMachine.Domain.DomainServices;
 using SnackMachine.Domain.MachineAggregate;
 using SnackMachine.Domain.SnackAggregate;
@@ -17,12 +16,12 @@ namespace SnackMachine.API.UseCases.BuySnack
     {
         private readonly IMachineRepository machineRepository;
         private readonly ISnackRepository snackRepository;
-        private readonly AccountService accountService;
+        private readonly IAccountService accountService;
 
         public CustomerController(
             IMachineRepository machineRepository, 
             ISnackRepository snackRepository, 
-            AccountService accountService)
+            IAccountService accountService)
         {
             this.machineRepository = machineRepository ?? throw new ArgumentNullException(nameof(machineRepository));
             this.snackRepository = snackRepository ?? throw new ArgumentNullException(nameof(snackRepository));
@@ -30,19 +29,19 @@ namespace SnackMachine.API.UseCases.BuySnack
         }
 
 
-        [HttpPost(nameof(Buy))]
-        public async Task<IActionResult> Buy([FromBody] BuySnackRequest request)
+        [HttpPost(nameof(BuySnack))]
+        public async Task<IActionResult> BuySnack([FromBody] BuySnackRequest request)
         {
-            var maybeSnack = await this.snackRepository.GetSnackAsync(request.Id);
-            if (!maybeSnack.TryGetValue(out var snack))
-            {
-                return this.BadRequest($"Snack with id: {request.Id} does not exists.");
-            }
-
             var maybeMachine = await this.machineRepository.GetMainMachineAsync();
             if (!maybeMachine.TryGetValue(out var machine))
             {
                 return this.BadRequest("There is no main machine registered");
+            }
+
+            var maybeSnack = await this.snackRepository.GetSnackAsync(request.SnackId);
+            if (!maybeSnack.TryGetValue(out var snack))
+            {
+                return this.BadRequest($"Snack with id: {request.SnackId} does not exists");
             }
 
             var result = this.accountService.BuyWithExchange(machine.Account, snack);
@@ -50,6 +49,8 @@ namespace SnackMachine.API.UseCases.BuySnack
             {
                 return this.BadRequest(result.Code);
             }
+
+            await this.machineRepository.SaveAsync(machine);
 
             return this.Ok();
         }

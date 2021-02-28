@@ -5,7 +5,7 @@ using SnackMachine.Domain.Utils;
 
 namespace SnackMachine.Domain.DomainServices
 {
-    public sealed class AccountService
+    public sealed class AccountService : IAccountService
     {
         private readonly IExchangeBox exchangeBox;
 

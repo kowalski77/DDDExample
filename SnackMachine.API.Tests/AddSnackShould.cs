@@ -21,7 +21,7 @@ namespace SnackMachine.API.Tests
 
             // Assert
             result.Should().BeOfType<BadRequestObjectResult>();
-            ((ObjectResult)result).Value.ToString().Should().Be($"There is no main machine registered");
+            ((ObjectResult)result).Value.ToString().Should().Be("There is no main machine registered");
         }
 
         [Theory, MachineWithNoSnacksDataSource]
