@@ -11,7 +11,7 @@ namespace SnackMachine.Domain.ValueObjects
             this.Value = value;
         }
 
-        public int Value { get; }
+        public int Value { get; private set; }
 
         public static Capacity CreateInstance(int value)
         {

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using SnackMachine.Domain.Utils;
 
 namespace SnackMachine.Domain.SnackAggregate
@@ -7,6 +8,6 @@ namespace SnackMachine.Domain.SnackAggregate
     {
         public Task AddSnack(Snack snack);
 
-        public Task<Maybe<Snack>> GetSnackAsync(long id);
+        public Task<Maybe<Snack>> GetSnackAsync(Guid id);
     }
 }

@@ -1,8 +1,10 @@
-﻿namespace SnackMachine.Domain.Utils
+﻿using System;
+
+namespace SnackMachine.Domain.Utils
 {
     public abstract class Entity
     {
-        public long Id { get; init; }
+        public Guid Id { get; init; }
 
         public override bool Equals(object? obj)
         {
@@ -15,7 +17,7 @@
             if (this.GetType() != other.GetType())
                 return false;
 
-            if (this.Id == 0 || other.Id == 0)
+            if (this.Id == Guid.Empty || other.Id == Guid.Empty)
                 return false;
 
             return this.Id == other.Id;

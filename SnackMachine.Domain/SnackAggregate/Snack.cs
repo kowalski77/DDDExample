@@ -12,8 +12,8 @@ namespace SnackMachine.Domain.SnackAggregate
             this.Price = price ?? throw new ArgumentNullException(nameof(price));
         }
 
-        public Name Name { get; }
+        public Name Name { get; private set; }
 
-        public Money Price { get; }
+        public Money Price { get; private set; }
     }
 }

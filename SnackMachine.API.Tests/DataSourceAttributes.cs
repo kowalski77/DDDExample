@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoFixture;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Moq;
@@ -44,7 +45,7 @@ namespace SnackMachine.API.Tests
             // snack repository
             var snack = fixture.Create<Snack>();
             var snackRepository = fixture.Freeze<Mock<ISnackRepository>>();
-            snackRepository.Setup(x => x.GetSnackAsync(It.IsAny<long>())).ReturnsAsync(snack);
+            snackRepository.Setup(x => x.GetSnackAsync(It.IsAny<Guid>())).ReturnsAsync(snack);
 
             base.CustomizeFixtureBefore(fixture);
         }

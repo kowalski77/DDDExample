@@ -27,7 +27,7 @@ namespace SnackMachine.Domain.ValueObjects
 
         public static Money FiftyCents => new(0.50m);
 
-        public decimal Value { get; }
+        public decimal Value { get; private set; }
 
         public int CompareTo(Money? other)
         {

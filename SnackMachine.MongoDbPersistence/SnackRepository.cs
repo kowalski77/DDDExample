@@ -20,7 +20,7 @@ namespace SnackMachine.MongoDbPersistence
             await this.context.SnacksCollection.InsertOneAsync(snack);
         }
 
-        public async Task<Maybe<Snack>> GetSnackAsync(long id)
+        public async Task<Maybe<Snack>> GetSnackAsync(Guid id)
         {
             return (await this.context.SnacksCollection.FindAsync(Builders<Snack>.Filter.Eq(x => x.Id, id))).FirstOrDefault();
         }
