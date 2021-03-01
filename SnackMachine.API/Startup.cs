@@ -22,12 +22,8 @@ namespace SnackMachine.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<InsertMoneyRequestValidator>());
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "SnackMachine.API", Version = "v1"});
-            });
+            services.AddCustomMvc();
+            services.AddSwagger();
 
             services.AddDomainServices();
             services.AddPersistence(this.Configuration);
