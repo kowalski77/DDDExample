@@ -6,12 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="appsettings.testing.json" />
+    <None Remove="Testing.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="appsettings.Testing.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="testing.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SnackMachine.API\SnackMachine.API.csproj" />
+    <ProjectReference Include="..\SnackMachine.TestUtils\SnackMachine.TestUtils.csproj" />
   </ItemGroup>
 
 </Project>

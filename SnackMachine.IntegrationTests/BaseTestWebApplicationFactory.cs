@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using AutoFixture;
+using AutoFixture.AutoMoq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
@@ -12,10 +14,16 @@ namespace SnackMachine.IntegrationTests
     public class BaseTestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup>
         where TStartup : class
     {
+        protected IFixture Fixture { get; } = new Fixture().Customize(new AutoMoqCustomization());
+
         protected override IHostBuilder CreateHostBuilder()
         {
             return base.CreateHostBuilder()
-                .ConfigureHostConfiguration(config => config.AddEnvironmentVariables("ASPNETCORE"))
+                .ConfigureHostConfiguration(config =>
+                {
+                    config.AddJsonFile("testing.json", false);
+                    config.AddEnvironmentVariables("ASPNETCORE");
+                })
                 .UseEnvironment("Testing");
         }
 

@@ -1,8 +1,8 @@
 {
   "MongoDbConfiguration": {
     "ConnectionString": "mongodb://localhost:27017",
-    "DatabaseName": "SnackMachineTest",
+    "DatabaseName": "SnackMachineTestDB",
     "SnacksCollectionName": "Snacks",
-    "AccountCollectionName" :  "Accounts" 
+    "AccountCollectionName": "Accounts"
   }
 }
