@@ -6,6 +6,7 @@ using AutoFixture;
 using FluentAssertions;
 using MongoDB.Driver;
 using SnackMachine.API;
+using SnackMachine.API.UseCases.GetSnack;
 using SnackMachine.Domain.SnackAggregate;
 using Xunit;
 
@@ -41,7 +42,7 @@ namespace SnackMachine.IntegrationTests.Snacks
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var responseSnack = JsonSerializer.Deserialize<SnackTestDto>(await response.Content.ReadAsStringAsync(), this.jsonSerializerOptions);
+            var responseSnack = JsonSerializer.Deserialize<GetSnackModel.SnackResponse>(await response.Content.ReadAsStringAsync(), this.jsonSerializerOptions);
             responseSnack?.Name.Should().Be(snack.Name.Value);
             responseSnack?.Price.Should().Be(snack.Price.Value);
         }
