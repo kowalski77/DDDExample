@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -41,10 +42,19 @@ namespace SnackMachine.IntegrationTests.Snacks
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-
             var responseSnack = JsonSerializer.Deserialize<GetSnackModel.SnackResponse>(await response.Content.ReadAsStringAsync(), this.jsonSerializerOptions);
             responseSnack?.Name.Should().Be(snack.Name.Value);
             responseSnack?.Price.Should().Be(snack.Price.Value);
+        }
+
+        [Fact]
+        public async Task Return_not_found_when_non_existing_snackId()
+        {
+            // Act
+            var response = await this.httpClient.GetAsync($"{IntegrationTestConstants.SnackUrl}/{Guid.NewGuid()}");
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }
