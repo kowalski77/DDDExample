@@ -1,6 +1,5 @@
 using System;
 using System.Net;
-using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoFixture;
@@ -13,16 +12,17 @@ using Xunit;
 
 namespace SnackMachine.IntegrationTests.Snacks
 {
-    public class AddSnackShould : IClassFixture<TestWebApplicationFactory<Startup>>
+    [Collection(IntegrationTestConstants.TestWebApplicationFactoryCollection)]
+    public class GetSnackShould
     {
-        private readonly TestWebApplicationFactory<Startup> factory;
-
         private readonly JsonSerializerOptions jsonSerializerOptions = new()
         {
             PropertyNameCaseInsensitive = true
         };
 
-        public AddSnackShould(TestWebApplicationFactory<Startup> factory)
+        private readonly TestWebApplicationFactory<Startup> factory;
+
+        public GetSnackShould(TestWebApplicationFactory<Startup> factory)
         {
             this.factory = factory;
         }
