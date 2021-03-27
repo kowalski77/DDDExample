@@ -1,15 +1,21 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 
 namespace SnackMachine.API.UseCases.AddSnack
 {
-    public record AddSnackRequest(string Name, decimal Price);
-
-    public class AddSnackRequestValidator : AbstractValidator<AddSnackRequest>
+    public class AddSnackModel
     {
-        public AddSnackRequestValidator()
+        public record Request(string Name, decimal Price);
+
+        public record Response(Guid Id, string Name, decimal Price);
+
+        public class AddSnackRequestValidator : AbstractValidator<Request>
         {
-            this.RuleFor(x => x.Name).NotEmpty();
-            this.RuleFor(x => x.Price).GreaterThan(0);
+            public AddSnackRequestValidator()
+            {
+                this.RuleFor(x => x.Name).NotEmpty();
+                this.RuleFor(x => x.Price).GreaterThan(0);
+            }
         }
     }
 }

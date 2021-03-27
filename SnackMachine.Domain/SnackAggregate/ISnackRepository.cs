@@ -6,7 +6,7 @@ namespace SnackMachine.Domain.SnackAggregate
 {
     public interface ISnackRepository
     {
-        public Task AddSnack(Snack snack);
+        public Task<Snack> AddSnack(Snack snack);
 
         public Task<Maybe<Snack>> GetSnackAsync(Guid id);
     }

@@ -21,17 +21,19 @@ namespace SnackMachine.API.UseCases.AddSnack
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSnack([FromBody] AddSnackRequest request)
+        public async Task<IActionResult> AddSnack([FromBody] AddSnackModel.Request request)
         {
             if (request == null)
             {
-                return this.BadRequest($"Request {nameof(AddSnackRequest)} is null");
+                return this.BadRequest($"Request {nameof(AddSnackModel.Request)} is null");
             }
 
             var snack = new Snack(Name.CreateInstance(request.Name), Money.CreateInstance(request.Price));
-            await this.snackRepository.AddSnack(snack);
+            var newlySnack = await this.snackRepository.AddSnack(snack);
 
-            return this.Ok(snack);
+            var response = new AddSnackModel.Response(newlySnack.Id, newlySnack.Name.Value, newlySnack.Price.Value);
+
+            return this.Ok(response);
         }
     }
 }

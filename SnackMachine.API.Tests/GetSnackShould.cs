@@ -27,7 +27,7 @@ namespace SnackMachine.API.Tests
 
             // Arrange
             result.Should().BeOfType<OkObjectResult>()
-                .Which.Value.Should().BeOfType<GetSnackModel.SnackResponse>();
+                .Which.Value.Should().BeOfType<GetSnackModel.Response>();
         }
 
         [Theory, ControllerDataSource]

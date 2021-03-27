@@ -4,11 +4,11 @@ namespace SnackMachine.API.UseCases.GetSnack
 {
     public class GetSnackModel
     {
-        public record SnackRequest(long SnackId);
+        public record Request(long SnackId);
 
-        public record SnackResponse(string Name, decimal Price);
+        public record Response(string Name, decimal Price);
 
-        public class GetSnackRequestValidator : AbstractValidator<SnackRequest>
+        public class GetSnackRequestValidator : AbstractValidator<Request>
         {
             public GetSnackRequestValidator()
             {

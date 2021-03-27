@@ -16,12 +16,12 @@ namespace SnackMachine.API.Tests
 
             // Assert
             result.Should().BeOfType<BadRequestObjectResult>();
-            ((ObjectResult)result).Value.ToString().Should().Be($"Request {nameof(AddSnackRequest)} is null");
+            ((ObjectResult)result).Value.ToString().Should().Be($"Request {nameof(AddSnackModel.Request)} is null");
         }
 
         [Theory, AccountDataSource]
         public async Task Create_Ok_result_when_transaction_completed_successfully(
-            AddSnackRequest request,
+            AddSnackModel.Request request,
             SnackController sut)
         {
             // Act

@@ -15,9 +15,11 @@ namespace SnackMachine.MongoDbPersistence
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task AddSnack(Snack snack)
+        public async Task<Snack> AddSnack(Snack snack)
         {
             await this.context.SnacksCollection.InsertOneAsync(snack);
+
+            return snack;
         }
 
         public async Task<Maybe<Snack>> GetSnackAsync(Guid id)

@@ -28,7 +28,7 @@ namespace SnackMachine.API.UseCases.GetSnack
                 return this.NotFound($"No snack found with id: {id}");
             }
 
-            var response = new GetSnackModel.SnackResponse(snack.Name.Value, snack.Price.Value);
+            var response = new GetSnackModel.Response(snack.Name.Value, snack.Price.Value);
 
             return this.Ok(response);
         }
