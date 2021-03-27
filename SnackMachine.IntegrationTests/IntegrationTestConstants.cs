@@ -2,6 +2,6 @@
 {
     public static class IntegrationTestConstants
     {
-        public static readonly string SnackUrl = "/api/v1/Snack";
+        public const string SnackUrl = "/api/v1/Snack";
     }
 }

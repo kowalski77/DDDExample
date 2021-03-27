@@ -13,20 +13,18 @@ using Xunit;
 
 namespace SnackMachine.IntegrationTests.Snacks
 {
-    public class AddSnackShould : IClassFixture<BaseTestWebApplicationFactory<Startup>>
+    public class AddSnackShould : IClassFixture<TestWebApplicationFactory<Startup>>
     {
-        private readonly BaseTestWebApplicationFactory<Startup> factory;
-        private readonly HttpClient httpClient;
+        private readonly TestWebApplicationFactory<Startup> factory;
 
         private readonly JsonSerializerOptions jsonSerializerOptions = new()
         {
             PropertyNameCaseInsensitive = true
         };
 
-        public AddSnackShould(BaseTestWebApplicationFactory<Startup> factory)
+        public AddSnackShould(TestWebApplicationFactory<Startup> factory)
         {
             this.factory = factory;
-            this.httpClient = this.factory.CreateClient();
         }
 
         [Fact]
@@ -38,7 +36,7 @@ namespace SnackMachine.IntegrationTests.Snacks
             var storedSnack = (await this.factory.SnacksCollection.FindAsync<Snack>(Builders<Snack>.Filter.Eq(x => x.Name, snack.Name))).FirstOrDefault();
 
             // Act
-            var response = await this.httpClient.GetAsync($"{IntegrationTestConstants.SnackUrl}/{storedSnack.Id}");
+            var response = await this.factory.HttpClient.GetAsync($"{IntegrationTestConstants.SnackUrl}/{storedSnack.Id}");
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -51,7 +49,7 @@ namespace SnackMachine.IntegrationTests.Snacks
         public async Task Return_not_found_when_non_existing_snackId()
         {
             // Act
-            var response = await this.httpClient.GetAsync($"{IntegrationTestConstants.SnackUrl}/{Guid.NewGuid()}");
+            var response = await this.factory.HttpClient.GetAsync($"{IntegrationTestConstants.SnackUrl}/{Guid.NewGuid()}");
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);

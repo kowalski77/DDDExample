@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using Microsoft.AspNetCore.Hosting;
@@ -14,11 +15,18 @@ using SnackMachine.MongoDbPersistence;
 
 namespace SnackMachine.IntegrationTests
 {
-    public class BaseTestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup>
+    public class TestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup>
         where TStartup : class
     {
         private Lazy<IMongoClient>? mongoClientLazy;
         private IServiceProvider? serviceProvider;
+
+        public TestWebApplicationFactory()
+        {
+            this.HttpClient = this.CreateClient();
+        }
+
+        public HttpClient HttpClient { get; }
 
         public IFixture Fixture { get; } = new Fixture().Customize(new AutoMoqCustomization());
 
