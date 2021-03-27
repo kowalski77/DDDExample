@@ -1,7 +1,10 @@
 ﻿using System.Threading.Tasks;
+using AutoFixture.Xunit2;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
 using SnackMachine.API.UseCases.AddSnack;
+using SnackMachine.Domain.SnackAggregate;
 using Xunit;
 
 namespace SnackMachine.API.Tests
@@ -19,11 +22,16 @@ namespace SnackMachine.API.Tests
             ((ObjectResult)result).Value.ToString().Should().Be($"Request {nameof(AddSnackModel.Request)} is null");
         }
 
-        [Theory, AccountDataSource]
+        [Theory, ControllerDataSource]
         public async Task Create_Ok_result_when_transaction_completed_successfully(
+            [Frozen] Mock<ISnackRepository> snackRepositoryMock,
             AddSnackModel.Request request,
+            Snack snack,
             SnackController sut)
         {
+            // Arrange
+            snackRepositoryMock.Setup(x => x.AddSnack(It.IsAny<Snack>())).ReturnsAsync(snack);
+
             // Act
             var result = await sut.AddSnack(request);
 

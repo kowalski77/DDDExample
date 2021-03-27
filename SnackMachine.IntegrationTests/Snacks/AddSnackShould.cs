@@ -27,7 +27,7 @@ namespace SnackMachine.IntegrationTests.Snacks
         }
 
         [Fact]
-        public async Task store_a_snack_when_valid_request()
+        public async Task Store_a_snack_when_valid_request()
         {
             // Arrange
             var request = new AddSnackModel.Request(this.factory.Fixture.Create<string>(), this.factory.Fixture.Create<decimal>());

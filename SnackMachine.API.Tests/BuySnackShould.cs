@@ -25,13 +25,13 @@ namespace SnackMachine.API.Tests
             // Assert
             accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
             result.Should().BeOfType<BadRequestObjectResult>();
-            ((ObjectResult)result).Value.ToString().Should().Be($"Request {nameof(BuySnackRequest)} is null");
+            ((ObjectResult)result).Value.ToString().Should().Be($"Request {nameof(BuySnackModel.Request)} is null");
         }
 
         [Theory, ControllerDataSource]
         public async Task Create_NotFound_result_when_no_account_is_available(
             [Frozen] Mock<IAccountRepository> accountRepositoryMock,
-            BuySnackRequest request,
+            BuySnackModel.Request request,
             AccountController sut)
         {
             // Act
@@ -46,7 +46,7 @@ namespace SnackMachine.API.Tests
         [Theory, AccountDataSource]
         public async Task Create_NotFound_result_when_snack_does_not_exists(
             [Frozen] Mock<IAccountRepository> accountRepositoryMock,
-            BuySnackRequest request,
+            BuySnackModel.Request request,
             AccountController sut)
         {
             // Act
@@ -62,7 +62,7 @@ namespace SnackMachine.API.Tests
         public async Task Create_BadRequest_result_when_transaction_cannot_be_completed(
             [Frozen] Mock<IAccountRepository> accountRepositoryMock,
             [Frozen] Mock<IAccountService> accountServiceMock,
-            BuySnackRequest request,
+            BuySnackModel.Request request,
             AccountController sut)
         {
             // Arrange
@@ -81,7 +81,7 @@ namespace SnackMachine.API.Tests
         public async Task Create_Ok_result_when_transaction_is_completed(
             [Frozen] Mock<IAccountRepository> accountRepositoryMock,
             [Frozen] Mock<IAccountService> accountServiceMock,
-            BuySnackRequest request,
+            BuySnackModel.Request request,
             AccountController sut)
         {
             // Arrange

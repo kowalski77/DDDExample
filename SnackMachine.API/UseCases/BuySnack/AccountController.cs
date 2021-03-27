@@ -29,11 +29,11 @@ namespace SnackMachine.API.UseCases.BuySnack
         }
 
         [HttpPut(nameof(BuySnack))]
-        public async Task<IActionResult> BuySnack([FromBody] BuySnackRequest request)
+        public async Task<IActionResult> BuySnack([FromBody] BuySnackModel.Request request)
         {
             if (request == null)
             {
-                return this.BadRequest($"Request {nameof(BuySnackRequest)} is null");
+                return this.BadRequest($"Request {nameof(BuySnackModel.Request)} is null");
             }
 
             var maybeAccount = await this.accountRepository.GetAccountAsync();

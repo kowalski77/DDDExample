@@ -3,13 +3,16 @@ using FluentValidation;
 
 namespace SnackMachine.API.UseCases.BuySnack
 {
-    public record BuySnackRequest(Guid SnackId);
-
-    public class BuySnackRequestValidator : AbstractValidator<BuySnackRequest>
+    public class BuySnackModel
     {
-        public BuySnackRequestValidator()
+        public record Request(Guid SnackId);
+
+        public class BuySnackRequestValidator : AbstractValidator<Request>
         {
-            this.RuleFor(x => x.SnackId).NotEmpty();
+            public BuySnackRequestValidator()
+            {
+                this.RuleFor(x => x.SnackId).NotEmpty();
+            }
         }
     }
 }

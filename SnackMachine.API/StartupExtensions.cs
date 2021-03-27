@@ -10,7 +10,7 @@ namespace SnackMachine.API
         public static IServiceCollection AddCustomMvc(this IServiceCollection services)
         {
             services.AddControllers()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<InsertMoneyRequestValidator>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<InsertMoneyModel.InsertMoneyRequestValidator>());
 
             return services;
         }
