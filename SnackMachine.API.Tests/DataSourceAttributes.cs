@@ -10,44 +10,72 @@ using SnackMachine.TestUtils;
 
 namespace SnackMachine.API.Tests
 {
-    public class ControllerDataSourceAttribute : BaseDataSourceAttribute
+    public class ControllerDataSourceAttribute : CustomDataSourceAttribute
     {
-        protected override void CustomizeFixtureBefore(IFixture fixture)
+        public ControllerDataSourceAttribute()
+            : base(new ControllerCustomization())
         {
-            fixture.Customize<BindingInfo>(c => c.OmitAutoProperties());
+        }
+
+        protected ControllerDataSourceAttribute(ICustomization customization)
+            : base(new CompositeCustomization(customization, new ControllerCustomization()))
+        {
+        }
+
+        private class ControllerCustomization : ICustomization
+        {
+            public void Customize(IFixture fixture)
+            {
+                fixture.Customize<BindingInfo>(c => c.OmitAutoProperties());
+            }
         }
     }
 
     public class AccountDataSourceAttribute : ControllerDataSourceAttribute
     {
-        protected override void CustomizeFixtureBefore(IFixture fixture)
+        public AccountDataSourceAttribute() 
+            : base(new AccountCustomization())
         {
-            base.CustomizeFixtureBefore(fixture);
+        }
 
-            var coins = new List<Coin>(new[]
+        protected AccountDataSourceAttribute(ICustomization customization) 
+            : base(new CompositeCustomization(new AccountCustomization(), customization))
+        {
+        }
+
+        private class AccountCustomization : ICustomization
+        {
+            public void Customize(IFixture fixture)
             {
-                new Coin(1, Money.FiveCents),
-                new Coin(0, Money.TenCents),
-                new Coin(1, Money.FiftyCents),
-                new Coin(1, Money.One)
-            });
-            var account = new Account(coins);
+                var coins = new List<Coin>(new[]
+                {
+                    new Coin(1, Money.FiveCents),
+                    new Coin(0, Money.TenCents),
+                    new Coin(1, Money.FiftyCents),
+                    new Coin(1, Money.One)
+                });
+                var account = new Account(coins);
 
-            var accountRepositoryMock = fixture.Freeze<Mock<IAccountRepository>>();
-            accountRepositoryMock.Setup(x => x.GetAccountAsync()).ReturnsAsync(account);
+                var accountRepositoryMock = fixture.Freeze<Mock<IAccountRepository>>();
+                accountRepositoryMock.Setup(x => x.GetAccountAsync()).ReturnsAsync(account);
+            }
         }
     }
 
     public class MachineWithSnacksDataSourceAttribute : AccountDataSourceAttribute
     {
-        protected override void CustomizeFixtureBefore(IFixture fixture)
+        public MachineWithSnacksDataSourceAttribute() : base(new MachineCustomization())
         {
-            // snack repository
-            var snack = fixture.Create<Snack>();
-            var snackRepository = fixture.Freeze<Mock<ISnackRepository>>();
-            snackRepository.Setup(x => x.GetSnackAsync(It.IsAny<Guid>())).ReturnsAsync(snack);
+        }
 
-            base.CustomizeFixtureBefore(fixture);
+        private class MachineCustomization : ICustomization
+        {
+            public void Customize(IFixture fixture)
+            {
+                var snack = fixture.Create<Snack>();
+                var snackRepository = fixture.Freeze<Mock<ISnackRepository>>();
+                snackRepository.Setup(x => x.GetSnackAsync(It.IsAny<Guid>())).ReturnsAsync(snack);
+            }
         }
     }
 }
