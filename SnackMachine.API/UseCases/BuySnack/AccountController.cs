@@ -29,11 +29,11 @@ namespace SnackMachine.API.UseCases.BuySnack
         }
 
         [HttpPut(nameof(BuySnack))]
-        public async Task<IActionResult> BuySnack([FromBody] BuySnackModel.Request request)
+        public async Task<IActionResult> BuySnack([FromBody] BuySnackModel.SnackRequest snackRequest)
         {
-            if (request == null)
+            if (snackRequest == null)
             {
-                return this.BadRequest($"Request {nameof(BuySnackModel.Request)} is null");
+                return this.BadRequest($"Request {nameof(BuySnackModel.SnackRequest)} is null");
             }
 
             var maybeAccount = await this.accountRepository.GetAccountAsync();
@@ -42,10 +42,10 @@ namespace SnackMachine.API.UseCases.BuySnack
                 return this.NotFound("No account available");
             }
 
-            var maybeSnack = await this.snackRepository.GetSnackAsync(request.SnackId);
+            var maybeSnack = await this.snackRepository.GetSnackAsync(snackRequest.SnackId);
             if (!maybeSnack.TryGetValue(out var snack))
             {
-                return this.NotFound($"Snack with id: {request.SnackId} does not exists");
+                return this.NotFound($"Snack with id: {snackRequest.SnackId} does not exists");
             }
 
             var result = this.accountService.BuyWithExchange(account, snack);

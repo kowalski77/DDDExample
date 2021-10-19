@@ -25,17 +25,17 @@ namespace SnackMachine.API.Tests
             // Assert
             accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
             result.Should().BeOfType<BadRequestObjectResult>();
-            ((ObjectResult)result).Value.ToString().Should().Be($"Request {nameof(BuySnackModel.Request)} is null");
+            ((ObjectResult)result).Value.ToString().Should().Be($"Request {nameof(BuySnackModel.SnackRequest)} is null");
         }
 
         [Theory, ControllerDataSource]
         public async Task Create_NotFound_result_when_no_account_is_available(
             [Frozen] Mock<IAccountRepository> accountRepositoryMock,
-            BuySnackModel.Request request,
+            BuySnackModel.SnackRequest snackRequest,
             AccountController sut)
         {
             // Act
-            var result = await sut.BuySnack(request);
+            var result = await sut.BuySnack(snackRequest);
 
             // Assert
             accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
@@ -46,23 +46,23 @@ namespace SnackMachine.API.Tests
         [Theory, AccountDataSource]
         public async Task Create_NotFound_result_when_snack_does_not_exists(
             [Frozen] Mock<IAccountRepository> accountRepositoryMock,
-            BuySnackModel.Request request,
+            BuySnackModel.SnackRequest snackRequest,
             AccountController sut)
         {
             // Act
-            var result = await sut.BuySnack(request);
+            var result = await sut.BuySnack(snackRequest);
 
             // Assert
             accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
             result.Should().BeOfType<NotFoundObjectResult>();
-            ((ObjectResult)result).Value.ToString().Should().Be($"Snack with id: {request.SnackId} does not exists");
+            ((ObjectResult)result).Value.ToString().Should().Be($"Snack with id: {snackRequest.SnackId} does not exists");
         }
 
         [Theory, MachineWithSnacksDataSource]
         public async Task Create_BadRequest_result_when_transaction_cannot_be_completed(
             [Frozen] Mock<IAccountRepository> accountRepositoryMock,
             [Frozen] Mock<IAccountService> accountServiceMock,
-            BuySnackModel.Request request,
+            BuySnackModel.SnackRequest snackRequest,
             AccountController sut)
         {
             // Arrange
@@ -70,7 +70,7 @@ namespace SnackMachine.API.Tests
                 .Returns(() => Result<AccountCode>.Fail(AccountCode.NotEnoughChange));
 
             // Act
-            var result = await sut.BuySnack(request);
+            var result = await sut.BuySnack(snackRequest);
 
             // Assert
             accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
@@ -81,7 +81,7 @@ namespace SnackMachine.API.Tests
         public async Task Create_Ok_result_when_transaction_is_completed(
             [Frozen] Mock<IAccountRepository> accountRepositoryMock,
             [Frozen] Mock<IAccountService> accountServiceMock,
-            BuySnackModel.Request request,
+            BuySnackModel.SnackRequest snackRequest,
             AccountController sut)
         {
             // Arrange
@@ -89,7 +89,7 @@ namespace SnackMachine.API.Tests
                 .Returns(() => Result<AccountCode>.Ok(AccountCode.Ok));
 
             // Act
-            var result = await sut.BuySnack(request);
+            var result = await sut.BuySnack(snackRequest);
 
             // Assert
             accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Once);

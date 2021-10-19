@@ -5,9 +5,9 @@ namespace SnackMachine.API.UseCases.BuySnack
 {
     public class BuySnackModel
     {
-        public record Request(Guid SnackId);
+        public record SnackRequest(Guid SnackId);
 
-        public class BuySnackRequestValidator : AbstractValidator<Request>
+        public class BuySnackRequestValidator : AbstractValidator<SnackRequest>
         {
             public BuySnackRequestValidator()
             {

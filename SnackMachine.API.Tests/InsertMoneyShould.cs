@@ -22,13 +22,13 @@ namespace SnackMachine.API.Tests
             // Assert
             accountRepositoryMock.Verify(x => x.UpdateAccountAsync(It.IsAny<Account>()), Times.Never);
             result.Should().BeOfType<BadRequestObjectResult>();
-            ((ObjectResult)result).Value.ToString().Should().Be($"Request {nameof(InsertMoneyModel.Request)} is null");
+            ((ObjectResult)result).Value.ToString().Should().Be($"Request {nameof(InsertMoneyModel.MoneyRequest)} is null");
         }
 
         [Theory, ControllerDataSource]
         public async Task Create_NotFound_result_when_no_account_is_available(
             [Frozen] Mock<IAccountRepository> accountRepositoryMock,
-            InsertMoneyModel.Request request,
+            InsertMoneyModel.MoneyRequest request,
             AccountController sut)
         {
             // Act
@@ -46,7 +46,7 @@ namespace SnackMachine.API.Tests
             AccountController sut)
         {
             // Arrange
-            var request = new InsertMoneyModel.Request(0.75m);
+            var request = new InsertMoneyModel.MoneyRequest(0.75m);
 
             // Act
             var result = await sut.InsertMoney(request);
@@ -63,7 +63,7 @@ namespace SnackMachine.API.Tests
             AccountController sut)
         {
             // Arrange
-            var request = new InsertMoneyModel.Request(0.50m);
+            var request = new InsertMoneyModel.MoneyRequest(0.50m);
 
             // Act
             var result = await sut.InsertMoney(request);

@@ -4,9 +4,9 @@ namespace SnackMachine.API.UseCases.InsertMoney
 {
     public class InsertMoneyModel
     {
-        public record Request(decimal Amount);
+        public record MoneyRequest(decimal Amount);
 
-        public class InsertMoneyRequestValidator : AbstractValidator<Request>
+        public class InsertMoneyRequestValidator : AbstractValidator<MoneyRequest>
         {
             public InsertMoneyRequestValidator()
             {

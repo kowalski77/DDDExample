@@ -21,11 +21,11 @@ namespace SnackMachine.API.UseCases.InsertMoney
         }
 
         [HttpPut(nameof(InsertMoney))]
-        public async Task<IActionResult> InsertMoney([FromBody] InsertMoneyModel.Request request)
+        public async Task<IActionResult> InsertMoney([FromBody] InsertMoneyModel.MoneyRequest request)
         {
             if (request == null)
             {
-                return this.BadRequest($"Request {nameof(InsertMoneyModel.Request)} is null");
+                return this.BadRequest($"Request {nameof(InsertMoneyModel.MoneyRequest)} is null");
             }
 
             var maybeAccount = await this.accountRepository.GetAccountAsync();
